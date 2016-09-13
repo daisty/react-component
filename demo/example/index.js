@@ -20,6 +20,8 @@ const Progress = require('../../component/Progress');
 const Message = require('../../component/Message');
 const Notice = require('../../component/Notice');
 const NoticeCenter = require('../../component/NoticeCenter');
+const Form = require('../../component/Form');
+const Field = require('../../component/Field');
 
 module.exports = {
     CheckBox,
@@ -43,5 +45,7 @@ module.exports = {
     Progress,
     Message,
     Notice,
+    Form,
+    Field,
     NoticeCenter
 };

@@ -25,6 +25,7 @@ import CalenderDemo from "./example/CalenderDemo.jsx";
 import ProgressDemo from "./example/ProgressDemo.jsx";
 import MessageDemo from "./example/MessageDemo.jsx";
 import NoticeDemo from "./example/NoticeDemo.jsx";
+import FormDemo from "./example/FormDemo.jsx";
 
 class Nav extends React.Component {
     render(){
@@ -51,6 +52,7 @@ class Nav extends React.Component {
                     <li><h4><NavLink to="/progress">progress</NavLink></h4></li>
                     <li><h4><NavLink to="/message">message</NavLink></h4></li>
                     <li><h4><NavLink to="/notice">notice</NavLink></h4></li>
+                    <li><h4><NavLink to="/form">form</NavLink></h4></li>
                 </ul>
             </Pin>
         );
@@ -67,7 +69,7 @@ class App extends React.Component {
     render() {
         return ( 
             <div>
-                <div className="header">
+                {/*<div className="header">
                     <div className="container">
                         <h1><a href="http://imiao.in">React Component</a></h1>
                         <div className="table">
@@ -93,6 +95,9 @@ class App extends React.Component {
                 </div>
                 <div className="footer center container">
                     <a href="http://braavos.me" target="_blank">@落在深海</a>
+                </div>*/}
+                <div className="children">
+                    {this.props.children}
                 </div>
             </div>
         );
@@ -123,5 +128,6 @@ ReactDOM.render(<Router history={hashHistory}>
                         <Route path="/progress" component={ProgressDemo}/>
                         <Route path="/message" component={MessageDemo}/>
                         <Route path="/notice" component={NoticeDemo}/>
+                        <Route path="/form" component={FormDemo}/>
                     </Route>
                 </Router> , document.getElementById('root'));

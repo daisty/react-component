@@ -80,7 +80,7 @@ const DropDown = React.createClass({
                 if(selected) tags[_index] = item_label;
             } else {
                 selected = value === item_val;
-                placeHolder = item_label;
+                if (selected) placeHolder = item_label;
             }
             
             if(this.getFilterStatus(filterText, item_label, item_val)) {
@@ -283,6 +283,21 @@ const DropDown = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
+        // options change
+        if (nextProps.options) {
+            if (this.props.options !== nextProps.options) {
+                this.setState({
+                    options: nextProps.options
+                });
+            }
+        } else {
+            if (this.props.children !== nextProps.children) {
+                this.setState({
+                    children: nextProps.children
+                });
+            }
+        }
+        // value change
         if (this.props.value !== nextProps.value) {
             this.setState({
                 value: nextProps.value

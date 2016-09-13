@@ -25,6 +25,8 @@ var Calender = require("./lib/Calender.js");
 var Progress = require("./lib/Progress.js");
 var Message = require("./lib/Message.js");
 var NoticeCenter = require("./lib/NoticeCenter.js");
+var Form = require("./lib/Form.js");
+var Field = require("./lib/Field.js");
 
 module.exports = {
     DocumentClickMixin: DocumentClickMixin,
@@ -52,4 +54,6 @@ module.exports = {
     Progress: Progress,
     Message: Message,
     NoticeCenter: NoticeCenter,
+    Form: Form,
+    Field: Field,
 };
