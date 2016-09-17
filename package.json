@@ -10,7 +10,7 @@
     "lint": "eslint lib"
   },
   "pre-commit": [
-    // "lint"
+    "lint"
   ],
   "repository": {
     "type": "git",

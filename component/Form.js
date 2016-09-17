@@ -4,12 +4,7 @@ const Field = require('./Field');
 const Form = React.createClass({
     propTypes: {
         onSubmit: React.PropTypes.func.isRequired,
-    },
-    getInitialState() {
-        let {store} = this.props
-        return {
-            store
-        }
+        onStoreChange: React.PropTypes.func.isRequired,
     },
     getDefaultProps() {
         return {
@@ -18,35 +13,38 @@ const Form = React.createClass({
     },
     handleSubmit(e){
         e.preventDefault()
-        const {store} = this.state
-        const {onSubmit} = this.props
+        const {store, onSubmit} = this.props
         onSubmit(store)
         return false
     },
+    handleStoreChange(){
+        const {onStoreChange} = this.props
+        onStoreChange(this.props.store)
+    },
     onFieldChange(name, value){
-        let {store} = this.state
-        store[name] =value
-        this.setState({
-            store
-        })
+        let {store, onStoreChange} = this.props
+        store[name] = value
+        onStoreChange(store)
     },
     formatFormFields(children){
-        const {store} = this.state
+        const {store} = this.props
         let nodes = React.Children.map(children, item => {
+            if (typeof item === 'string') {
+                return item
+            }
             if (item.type === Field) {
                 return this.formatField(item, store)
             }
-
             let subChildren = item.props.children
             if (typeof subChildren === 'string') {
                 return item
             }
             if (subChildren) {
-                let cmp = item
+                let CMP = item
                 return (
-                    <cmp {...item.props}>
+                    <CMP.type {...item.props}>
                         {this.formatFormFields(subChildren)}
-                    </cmp>
+                    </CMP.type>
                 )
             }
             return item

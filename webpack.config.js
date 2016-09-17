@@ -4,7 +4,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 var ForceCaseSensitivityPlugin = require('force-case-sensitivity-webpack-plugin');
-var publicPath = process.env.NODE_ENV === 'dev' ? '/dist/' : '';
+var NODE_ENV = process.env.NODE_ENV;
+var publicPath = NODE_ENV === 'dev' ? '/dist/' : '';
+const envConfig = NODE_ENV === 'prod' ? {'process.env': { NODE_ENV: JSON.stringify('production')} } : {}
 
 module.exports = {
     entry: "./demo/entre.js",
@@ -18,11 +20,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new ForceCaseSensitivityPlugin(),
-        new webpack.DefinePlugin({
-          "process.env": { 
-             NODE_ENV: JSON.stringify("production") 
-           }
-        })
+        new webpack.DefinePlugin(envConfig)
         // new webpack.optimize.UglifyJsPlugin({
         //     sourceMap: false,
         //     mangle: false

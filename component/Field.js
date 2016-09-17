@@ -3,67 +3,82 @@ const React = require('react');
 const Field = React.createClass({
     getDefaultProps() {
         return {
-            type: 'input'
+            type: 'div'
         }
     },
-    render() {
-        const {props} = this
-        let {component, type, name, formState, onChange} = props
-        if (name && formState) {
-            let CMP = component
-            let storeVal = formState[name]
-
-            if (component) {
-                if (Object.prototype.toString.call(component) === '[object String]') {
-                    props.value = storeVal
-                    if (onChange) {
-                        props.onChange = e => onChange(name, e.target.value)
-                    }
-                    switch(type){
-                        case 'checkbox':
-                            props.onChange = e => {
-                                let checked = e.target.checked;
-                                if (checked) {
-                                    onChange(name, storeVal.concat(e.target.value))
-                                } else {
-                                    onChange(name, storeVal.filter(val => val !== e.target.value))
-                                }
-                            }
-                            break
-                        case 'radio':
-                            props.onChange = e => onChange(name, e.target.value)
-                            break
-                        default:
-                            break
-                    }
-                    return <CMP type={type} name={name} chidren={props.chidren} onChange={onChange} value={props.value} />
-                }
-
-                props.onChange= val => onChange(name, val)
-                switch(component.displayName){
-                    case 'Radio':
-                        // props.checked = storeVal === props.value
-                        props.onChange = (e, value) => onChange(name, value)
-                        break
-                    case 'CheckBox':
-                        props.onChange = (e, value) => onChange(name, value)
-                        break
-                    case 'DropDown':
-                        props.labelName = props.labelName || 'name'
-                        props.valueName = props.valueName || 'value'
-                        break
-                    default:
-                        break
-                }
-
+    renderBasicCMP(CMP, {type, oldVal, newProps, onChange, name}){
+        switch(type){
+            case 'checkbox':
                 return (
-                    <CMP  {...props}/>
+                    <input {...newProps} type="checkbox" checked={oldVal && oldVal.indexOf(newProps.value) !== -1}
+                        onChange={e => {
+                            let checked = e.target.checked;
+                            if (checked) {
+                                onChange(name, oldVal.concat(newProps.value))
+                            } else {
+                                onChange(name, oldVal.filter(val => val !== newProps.value))
+                            }
+                        }}/>
                 )
+            case 'radio':
+                return (
+                    <input {...newProps} type="radio" checked={String(newProps.value) === String(oldVal)}
+                        onChange={() => onChange(name, newProps.value)}/>
+                )
+            default:
+                return <CMP {...newProps} value={oldVal} onChange={e => onChange(name, e.target.value)} />
+        }
+    },
+    renderOtherCMP(CMP, {newProps, oldVal, onChange, name}){
+        switch(CMP.displayName){
+            case 'Radio':
+                newProps.checked = String(oldVal) === String(newProps.value)
+                newProps.onChange = (e, value) => onChange(name, value)
+                break
+            case 'CheckBox':
+                newProps.onChange = (e, value) => onChange(name, value)
+                break
+            case 'DropDown':
+                newProps.value = oldVal
+                newProps.onChange= val => onChange(name, val)
+                newProps.labelName = newProps.labelName || 'name'
+                newProps.valueName = newProps.valueName || 'value'
+                break
+            default:
+                newProps.onChange= val => onChange(name, val)
+                newProps.value = oldVal
+                break
+        }
+
+        return (
+            <CMP  {...newProps}/>
+        )
+    },
+    render() {
+        let {component, type, name, formState, onChange} = this.props
+        let newProps = Object.assign({}, this.props)
+        // remove all not use props
+        delete newProps.component
+        delete newProps.type
+        delete newProps.name
+        delete newProps.formState
+        delete newProps.onChange
+
+        if (name && formState) {
+            let oldVal = formState[name]
+            if (component) {
+                // original html tag
+                if (Object.prototype.toString.call(component) === '[object String]') {
+                    return this.renderBasicCMP(component, { type, newProps, oldVal, onChange, name })
+                }
+                // Component
+                return this.renderOtherCMP(component, { newProps, oldVal, onChange, name });
+                
             }
         }
-        
+
         return (
-            <div {...props}></div>
+            <div {...newProps}></div>
         )
     }
 });
