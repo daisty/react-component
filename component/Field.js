@@ -22,7 +22,7 @@ const Field = React.createClass({
                 )
             case 'radio':
                 return (
-                    <input {...newProps} type="radio" checked={String(newProps.value) === String(oldVal)}
+                    <input {...newProps} type="radio" checked={newProps.value === oldVal}
                         onChange={() => onChange(name, newProps.value)}/>
                 )
             default:
@@ -32,7 +32,7 @@ const Field = React.createClass({
     renderOtherCMP(CMP, {newProps, oldVal, onChange, name}){
         switch(CMP.displayName){
             case 'Radio':
-                newProps.checked = String(oldVal) === String(newProps.value)
+                newProps.checked = oldVal === newProps.value
                 newProps.onChange = (e, value) => onChange(name, value)
                 break
             case 'CheckBox':
@@ -66,6 +66,9 @@ const Field = React.createClass({
 
         if (name && formState) {
             let oldVal = formState[name]
+            if (oldVal === undefined) {
+                oldVal = ''
+            }
             if (component) {
                 // original html tag
                 if (Object.prototype.toString.call(component) === '[object String]') {

@@ -1,11 +1,12 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const DocumentClickMixin = require('./mixin/DocumentClickMixin');
+const UpdatePropsMixin = require('./mixin/UpdatePropsMixin');
 const {BACKSPACE_KC} = require('./mixin/keyCode');
 const klassName = require('./util/className');
 
 const DropDown = React.createClass({
-    mixins: [DocumentClickMixin],
+    mixins: [DocumentClickMixin, UpdatePropsMixin],
 
     propTypes: {
         placeHolder: React.PropTypes.string,
@@ -280,29 +281,6 @@ const DropDown = React.createClass({
         this.setState({
             filterText: text, 
         });
-    },
-
-    componentWillReceiveProps(nextProps) {
-        // options change
-        if (nextProps.options) {
-            if (this.props.options !== nextProps.options) {
-                this.setState({
-                    options: nextProps.options
-                });
-            }
-        } else {
-            if (this.props.children !== nextProps.children) {
-                this.setState({
-                    children: nextProps.children
-                });
-            }
-        }
-        // value change
-        if (this.props.value !== nextProps.value) {
-            this.setState({
-                value: nextProps.value
-            });
-        }
     },
 
     render() {

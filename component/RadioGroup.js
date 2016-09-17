@@ -1,11 +1,12 @@
 const React = require('react');
 const Radio = require('./Radio');
 const klassName = require('./util/className');
+const UpdatePropsMixin = require('./mixin/UpdatePropsMixin');
 
 const RadioGroup = React.createClass({
+    mixins: [UpdatePropsMixin],
     propTypes: {
         options: React.PropTypes.array,
-        value: React.PropTypes.string,
         labelName: React.PropTypes.string,
         valueName: React.PropTypes.string,
         onChange: React.PropTypes.func,

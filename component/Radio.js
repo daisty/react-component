@@ -6,7 +6,6 @@ const Radio = React.createClass({
         onChange: React.PropTypes.func,
         checked: React.PropTypes.bool,
         disabled: React.PropTypes.bool,
-        value: React.PropTypes.string,
         className: React.PropTypes.string,
     },
 
