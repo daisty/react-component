@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Form, Field, Radio, RadioGroup, DropDown, Item, CheckBox, CheckBoxGroup} from './index';
+import FormMixin from '../../component/mixin/FormMixin';
 
 const options = [{
     name: '语文',
@@ -56,14 +57,13 @@ let user = {
     provinceId: 2,
 }
 
-export class SimpleForm extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            cities: cityHash[user.provinceId],
-            store: props.store
+export const SimpleFormDemo = React.createClass({
+    mixins: [FormMixin],
+    getInitialState() {
+        return {
+            cities: []
         }
-    }
+    },
     handleProvinceChange(pid){
         let cities = cityHash[pid]
         this.state.store.cityId = cities[0].id
@@ -71,14 +71,15 @@ export class SimpleForm extends Component {
             cities,
             store: this.state.store
         })
-    }
+    },
     handleSubmit(store){
         console.log(store)
-    }
+    },
+
     render() {
         const {store} = this.state
         return (
-            <Form store={store} onStoreChange={store => this.setState({store})} onSubmit={this.handleSubmit.bind(this)}>
+            <Form {...this.connectStore()} onSubmit={this.handleSubmit}>
                 <Field component="input" name="name"></Field>
                 <Field component="textarea" name="description" placeholder="描述"></Field>
                 <pre>
@@ -86,7 +87,7 @@ export class SimpleForm extends Component {
                 </pre>
                 <div>
                     <h4>Radio</h4>
-                    <Field component={Radio} name="single" value="true">
+                    <Field component={Radio} name="single" value={true}>
                         单身狗？
                     </Field>
                 </div>
@@ -101,6 +102,18 @@ export class SimpleForm extends Component {
                         非单身狗？
                     </label>
                 </div>
+                <h4>radio group</h4>
+                <Field component={RadioGroup} name="single">
+                    <Radio value={true}>单身狗？</Radio>
+                    <Radio value={false}>非单身狗？</Radio>
+                </Field>
+                <h4>checkbox</h4>
+                <label htmlFor="">
+                    <Field component="input" type="checkbox" name="single"/>
+                    单身狗？
+                </label>
+                <h4>CheckBox</h4>
+                <Field component={CheckBox} name="single">单身狗？</Field>
                 <div>
                     <h4>checkbox group</h4>
                     <Field component={CheckBoxGroup} name="job">
@@ -120,7 +133,7 @@ export class SimpleForm extends Component {
                 </Field>
                 <div>
                     <Field component={DropDown} name="provinceId" options={provinces} 
-                        labelName="name" valueName="id" onChange={this.handleProvinceChange.bind(this)}></Field>
+                        labelName="name" valueName="id" onChange={this.handleProvinceChange}></Field>
                     <Field options={this.state.cities} component={DropDown} valueName="id" name="cityId"></Field>
                 </div>
                 <Field component={DropDown} multi={true} name="course" options={options}></Field>
@@ -128,14 +141,33 @@ export class SimpleForm extends Component {
             </Form>
         );
     }
-}
+});
 
-
-export default class FormDemo extends Component {    
+export default class FormDemo extends Component {  
+    constructor(props){
+        super(props)
+        this.state = {
+            user: {}
+        }
+    }
+    loadData(e){
+        e.preventDefault()
+        this.setState({
+            user
+        });
+    }
+    initData(e){
+        e.preventDefault()
+        this.setState({
+            user: {}
+        });
+    }
     render() {
         return (
             <div>
-                <SimpleForm store={user}/>
+                <SimpleFormDemo store={this.state.user}/>
+                <button onClick={this.initData.bind(this)}>init Data</button>
+                <button onClick={this.loadData.bind(this)}>load Data</button>
             </div>
         );
     }
