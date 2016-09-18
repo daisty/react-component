@@ -10,18 +10,11 @@ const Field = React.createClass({
         switch(type){
             case 'checkbox':
                 if (!oldVal) {
-                    oldVal = []
+                    oldVal = false
                 }
                 return (
-                    <input {...newProps} type="checkbox" checked={oldVal && oldVal.indexOf(newProps.value) !== -1}
-                        onChange={e => {
-                            let checked = e.target.checked;
-                            if (checked) {
-                                onChange(name, oldVal.concat(newProps.value))
-                            } else {
-                                onChange(name, oldVal.filter(val => val !== newProps.value))
-                            }
-                        }}/>
+                    <input {...newProps} type="checkbox" checked={oldVal === true}
+                        onChange={e => onChange(name, e.target.checked)} />
                 )
             case 'radio':
                 return (
@@ -41,9 +34,10 @@ const Field = React.createClass({
                 break
             case 'CheckBox':
                 if (!oldVal) {
-                    oldVal = []
+                    oldVal = false
                 }
-                newProps.onChange = (e, value) => onChange(name, value)
+                newProps.checked = oldVal === true
+                newProps.onChange = (e) => onChange(name, e.target.checked)
                 break
             case 'DropDown':
                 if (newProps.multi && !oldVal) {
