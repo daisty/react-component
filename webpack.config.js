@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var precss = require('precss');
 var autoprefixer = require('autoprefixer');
-var ForceCaseSensitivityPlugin = require('force-case-sensitivity-webpack-plugin');
+var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var NODE_ENV = process.env.NODE_ENV;
 var publicPath = NODE_ENV === 'dev' ? '/dist/' : '';
 const envConfig = NODE_ENV === 'prod' ? {'process.env': { NODE_ENV: JSON.stringify('production')} } : {}
@@ -19,7 +19,7 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        new ForceCaseSensitivityPlugin(),
+        new CaseSensitivePathsPlugin(),
         new webpack.DefinePlugin(envConfig)
         // new webpack.optimize.UglifyJsPlugin({
         //     sourceMap: false,

@@ -69,7 +69,7 @@ class App extends React.Component {
     render() {
         return ( 
             <div>
-                {/*<div className="header">
+                <div className="header">
                     <div className="container">
                         <h1><a href="http://imiao.in">React Component</a></h1>
                         <div className="table">
@@ -95,9 +95,6 @@ class App extends React.Component {
                 </div>
                 <div className="footer center container">
                     <a href="http://braavos.me" target="_blank">@落在深海</a>
-                </div>*/}
-                <div className="children">
-                    {this.props.children}
                 </div>
             </div>
         );

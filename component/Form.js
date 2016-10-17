@@ -1,5 +1,6 @@
 const React = require('react');
 const Field = require('./Field');
+const klassName = require('./util/className');
 
 const Form = React.createClass({
     propTypes: {
@@ -26,36 +27,46 @@ const Form = React.createClass({
         store[name] = value
         onStoreChange(store)
     },
-    formatFormFields(children){
+    formatFormFields(context){
         const {store} = this.props
+        let children = context ? context.props.children : this.props.children
         let nodes = React.Children.map(children, item => {
-            if (typeof item === 'string') {
-                return item
-            }
-            if (item.type === Field) {
-                return this.formatField(item, store)
-            }
-            let subChildren = item.props.children
-            if (typeof subChildren === 'string') {
-                return item
-            }
-            if (subChildren) {
-                let CMP = item
-                return (
-                    <CMP.type {...item.props}>
-                        {this.formatFormFields(subChildren)}
-                    </CMP.type>
-                )
-            }
-            return item
+            return this.formatSingleField(item, store)
         })
+        if (!context) {
+            let {className} = this.props
+            className = klassName(className, 'form')
+            return (
+                <form className={className} onSubmit={this.handleSubmit}>
+                    {nodes}
+                </form>
+            )
+        }
         return (
-            <div>
+            <context.type {...context.props}>
                 {nodes}
-            </div>
+            </context.type>
         )
     },
-    formatField(item, store){
+    formatSingleField(item, store){
+        if (typeof item === 'string') {
+            return item
+        }
+        if (item.type === Field) {
+            return this.assembleField(item, store)
+        }
+        let subChildren = item.props.children
+        if (typeof subChildren === 'string') {
+            return item
+        }
+        if (subChildren) {
+            return (
+                this.formatFormFields(item)
+            )
+        }
+        return item
+    },
+    assembleField(item, store){
         let {onChange} = item.props
         if (onChange) {
             return <Field {...item.props} onChange={(name, value) => {
@@ -66,11 +77,8 @@ const Form = React.createClass({
         return <Field {...item.props} onChange={this.onFieldChange} formState={store}/>
     },
     render() {
-        const {children} = this.props
         return (
-            <form className="form" onSubmit={this.handleSubmit}>
-                {this.formatFormFields(children)}
-            </form>
+            this.formatFormFields()
         );
     }
 });
