@@ -23,7 +23,7 @@ import TimeInputDemo from "./example/TimeInputDemo.jsx";
 import DatePickerDemo from "./example/DatePickerDemo.jsx";
 import CalenderDemo from "./example/CalenderDemo.jsx";
 import ProgressDemo from "./example/ProgressDemo.jsx";
-import MessageDemo from "./example/MessageDemo.jsx";
+import FlashMessageDemo from "./example/FlashMessageDemo.jsx";
 import NoticeDemo from "./example/NoticeDemo.jsx";
 import FormDemo from "./example/FormDemo.jsx";
 
@@ -32,27 +32,27 @@ class Nav extends React.Component {
         return (
             <Pin className="demo-nav">
                 <ul>
+                    <li><h4><NavLink to="/calender">calender</NavLink></h4></li>
+                    <li><h4><NavLink to="/carousel">carousel</NavLink></h4></li>
                     <li><h4><NavLink to="/checkbox">checkbox</NavLink></h4></li>
-                    <li><h4><NavLink to="/radio">radio</NavLink></h4></li>
-                    <li><h4><NavLink to="/radio-group">radio group</NavLink></h4></li>
                     <li><h4><NavLink to="/checkbox-group">checkbox group</NavLink></h4></li>
+                    <li><h4><NavLink to="/confirm-box">confirm box</NavLink></h4></li>
+                    <li><h4><NavLink to="/date-picker">date picker</NavLink></h4></li>
                     <li><h4><NavLink to="/dropdown">drop down</NavLink></h4></li>
                     <li><h4><NavLink to="/menu">menu</NavLink></h4></li>
-                    <li><h4><NavLink to="/confirm-box">confirm box</NavLink></h4></li>
-                    <li><h4><NavLink to="/tooltip">tooltip</NavLink></h4></li>
+                    <li><h4><NavLink to="/flash-message">flash message</NavLink></h4></li>
                     <li><h4><NavLink to="/modal">modal</NavLink></h4></li>
-                    <li><h4><NavLink to="/tab">tab</NavLink></h4></li>
-                    <li><h4><NavLink to="/pin">pin</NavLink></h4></li>
-                    <li><h4><NavLink to="/carousel">carousel</NavLink></h4></li>
-                    <li><h4><NavLink to="/pagination">pagination</NavLink></h4></li>
-                    <li><h4><NavLink to="/slide-menu">slide menu</NavLink></h4></li>
-                    <li><h4><NavLink to="/time-input">time input</NavLink></h4></li>
-                    <li><h4><NavLink to="/date-picker">date picker</NavLink></h4></li>
-                    <li><h4><NavLink to="/calender">calender</NavLink></h4></li>
-                    <li><h4><NavLink to="/progress">progress</NavLink></h4></li>
-                    <li><h4><NavLink to="/message">message</NavLink></h4></li>
                     <li><h4><NavLink to="/notice">notice</NavLink></h4></li>
+                    <li><h4><NavLink to="/pagination">pagination</NavLink></h4></li>
+                    <li><h4><NavLink to="/pin">pin</NavLink></h4></li>
+                    <li><h4><NavLink to="/progress">progress</NavLink></h4></li>
+                    <li><h4><NavLink to="/radio">radio</NavLink></h4></li>
+                    <li><h4><NavLink to="/radio-group">radio group</NavLink></h4></li>
+                    <li><h4><NavLink to="/slide-menu">slide menu</NavLink></h4></li>
+                    <li><h4><NavLink to="/tab">tab</NavLink></h4></li>
+                    <li><h4><NavLink to="/time-input">time input</NavLink></h4></li>
                     <li><h4><NavLink to="/form">form</NavLink></h4></li>
+                    <li><h4><NavLink to="/tooltip">tooltip</NavLink></h4></li>
                 </ul>
             </Pin>
         );
@@ -123,7 +123,7 @@ ReactDOM.render(<Router history={hashHistory}>
                         <Route path="/date-picker" component={DatePickerDemo}/>
                         <Route path="/calender" component={CalenderDemo}/>
                         <Route path="/progress" component={ProgressDemo}/>
-                        <Route path="/message" component={MessageDemo}/>
+                        <Route path="/flash-message" component={FlashMessageDemo}/>
                         <Route path="/notice" component={NoticeDemo}/>
                         <Route path="/form" component={FormDemo}/>
                     </Route>

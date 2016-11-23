@@ -1,5 +1,5 @@
-const React = require('react');
-const klassName = require('./util/className');
+const React = require('react')
+const klassName = require('./util/className')
 
 const SlideMenu = React.createClass({
     propTypes: {

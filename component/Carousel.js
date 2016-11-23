@@ -1,7 +1,7 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const IntervalMixin = require('./mixin/IntervalMixin');
-const klassName = require('./util/className');
+const React = require('react')
+const ReactDOM = require('react-dom')
+const IntervalMixin = require('./mixin/IntervalMixin')
+const klassName = require('./util/className')
 
 const Carousel = React.createClass({
     mixins: [IntervalMixin],

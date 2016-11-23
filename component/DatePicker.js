@@ -1,8 +1,10 @@
-const React = require('react');
-const {dateStr2Obj, obj2DateStr} = require('./util/date');
-const DocumentClickMixin = require('./mixin/DocumentClickMixin');
-const Calender = require('./Calender');
-const klassName = require('./util/className');
+const React = require('react')
+const ReactCssTransitionGroup = require('react-addons-css-transition-group')
+const dateUtil = require('./util/date')
+const {dateStr2Obj, obj2DateStr} = dateUtil
+const DocumentClickMixin = require('./mixin/DocumentClickMixin')
+const Calender = require('./Calender')
+const klassName = require('./util/className')
 
 const DatePicker = React.createClass({
     mixins: [DocumentClickMixin],
@@ -18,7 +20,7 @@ const DatePicker = React.createClass({
 
     getInitialState() {
         const value = this.initDate();
-        return { value, showPicker: false };
+        return { value, open: false };
     },
 
     initDate(defaultValue=this.props.value){
@@ -35,32 +37,38 @@ const DatePicker = React.createClass({
         const {onChange} = this.props;
         this.setState({
             value,
-            showPicker: false
+            open: false
         });
         if (onChange) onChange(value);
     },
 
     onOtherDomClick(){
         this.setState({
-            showPicker: false
+            open: false
         });
     },
 
     render() {
-        const {showPicker, value} = this.state;
+        const {open, value} = this.state;
         let {begin, end, className} = this.props;
-        if (showPicker) className += ' _active';
+        if (open) className += ' _active';
         return (
             <div className={klassName('datepicker', className)}>
-                <input className="_input" onClick={ () => {this.setState({ showPicker: true }) }} value={value} readOnly/>
-                <div className="_picker">
-                    <Calender begin={begin} end={end} 
-                        value={value} onChange={this.handleValChange}/>
-                </div> 
+                <div className="input" onClick={() => {this.setState({ open: true }) }}>
+                    <input type="text" className="_input" value={value} readOnly/>
+                    <i></i>
+                </div>
+                <ReactCssTransitionGroup className="_picker" transitionName="datepicker"
+                    transitionEnterTimeout={200} transitionLeaveTimeout={200}>
+                    {open ?
+                        <Calender begin={begin} end={end} 
+                            value={value} onChange={this.handleValChange}/>
+                        : null
+                    }
+                </ReactCssTransitionGroup>
             </div>
         );
     }
 });
 
-
-module.exports = DatePicker;
+module.exports = DatePicker

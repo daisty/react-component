@@ -3,7 +3,7 @@ const CheckBox = require('./CheckBox');
 const klassName = require('./util/className');
 const UpdatePropsMixin = require('./mixin/UpdatePropsMixin');
 
-export const CheckBoxGroup = React.createClass({
+const CheckBoxGroup = React.createClass({
     mixins: [UpdatePropsMixin],
     getInitialState() {
         const {value, options} = this.props;
@@ -98,4 +98,4 @@ export const CheckBoxGroup = React.createClass({
     }
 });
 
-module.exports = CheckBoxGroup;
+module.exports = CheckBoxGroup

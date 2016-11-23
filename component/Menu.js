@@ -1,8 +1,9 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const {removeClass, hasClass, addClass, getClassList} = require('./util/dom');
-const DocumentClickMixin = require('./mixin/DocumentClickMixin');
-const klassName = require('./util/className');
+const React = require('react')
+const ReactDOM = require('react-dom')
+const domUtil = require('./util/dom')
+const {removeClass, hasClass, addClass, getClassList} = domUtil
+const DocumentClickMixin = require('./mixin/DocumentClickMixin')
+const klassName = require('./util/className')
 
 const Menu = React.createClass ({
     mixins: [DocumentClickMixin],
@@ -152,4 +153,4 @@ const Menu = React.createClass ({
     }
 });
 
-module.exports = Menu;
+module.exports = Menu

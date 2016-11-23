@@ -1,7 +1,11 @@
 const React = require('react');
-const {dateStr2Obj, obj2DateStr, date2DateStr} = require('./util/date');
-const {WEEK_LABEL, MONTH_LABEL} = require('./util/constants');
-const klassName = require('./util/className')
+const dateUtil = require('./util/date');
+const {dateStr2Obj, obj2DateStr, date2DateStr} = dateUtil
+
+const constants = require('./util/constants')
+const {WEEK_LABEL, MONTH_LABEL} = constants
+
+const klassName = require('./util/className');
 
 
 const Calender = React.createClass({
@@ -122,7 +126,7 @@ const Calender = React.createClass({
                                     <span>{month}月</span>
                                 </div>
                             </div>
-                            <ul>
+                            <ul className="_picker-list">
                                 {MONTH_LABEL.map((label, index) => {
                                     return (<li key={`month-picker-${index + 1}`}>
                                                 <a href="javascript:;" 
@@ -144,7 +148,7 @@ const Calender = React.createClass({
         const endY = year + 5;
 
         let yearRangeNodes = [];
-        for (let i = beginY; i < endY; i++) {
+        for (let i = beginY; i <= endY; i++) {
             let active = year === i ? '_active' : '';
             let isDisabled = i < 1900 ? '_disabled' : '';
             let yearItem = isDisabled ? 
@@ -168,7 +172,7 @@ const Calender = React.createClass({
                                         <i></i>
                                     </a>
                                 </div>
-                                <ul>
+                                <ul className="_picker-list">
                                     {yearRangeNodes}
                                 </ul>
                             </div> 
@@ -282,4 +286,4 @@ Calender.Item = React.createClass({
 });
 
 
-module.exports = Calender;
+module.exports = Calender

@@ -1,7 +1,7 @@
-const React = require('react');
-const klassName = require('./util/className');
+const React = require('react')
+const klassName = require('./util/className')
 
-export const CheckBox = React.createClass({
+const CheckBox = React.createClass({
     propTypes: {
         onChange: React.PropTypes.func,
         disabled: React.PropTypes.bool,
@@ -48,11 +48,10 @@ export const CheckBox = React.createClass({
             <label style={style} className={className}>
                 <input type="checkbox" disabled={disabled} 
                     checked={checked} onChange={this.checkedChange}/>
-                {children}
+                <span>{children}</span>
             </label>
         );
     }
 });
 
-module.exports = CheckBox;
-
+module.exports = CheckBox

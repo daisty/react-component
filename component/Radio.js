@@ -1,12 +1,13 @@
-const React = require('react');
-const klassName = require('./util/className');
+const React = require('react')
+const klassName = require('./util/className')
+const PropTypes = React.PropTypes
 
 const Radio = React.createClass({
     propTypes: {
-        onChange: React.PropTypes.func,
-        checked: React.PropTypes.bool,
-        disabled: React.PropTypes.bool,
-        className: React.PropTypes.string,
+        onChange: PropTypes.func,
+        checked: PropTypes.bool,
+        disabled: PropTypes.bool,
+        className: PropTypes.string,
     },
 
     getDefaultProps() {
@@ -29,7 +30,7 @@ const Radio = React.createClass({
         return (
             <label style={style} className={className}>
                 <input type="radio" ref="radioInput" disabled={disabled} checked={checked} onChange={this.checkedChange} />
-                {children}
+                <span>{children}</span>
             </label>
         );
     }
