@@ -51,7 +51,7 @@ let user = {
     age: 22,
     job: ['老师', '学生'],
     description: '王小二是个好同学',
-    single: false,
+    teacher: false,
     course: [1, 3],
     cityId: 201,
     provinceId: 2,
@@ -99,8 +99,8 @@ export const SimpleFormDemo = React.createClass({
                     <div className="field">
                         <h4>Radio</h4>
                         <div className="field">
-                            <Field component={Radio} name="single" value={true}>
-                                单身狗？
+                            <Field component={Radio} name="teacher" value={true}>
+                                老师？
                             </Field>
                         </div>
                     </div>
@@ -109,14 +109,14 @@ export const SimpleFormDemo = React.createClass({
                         <div className="fields-2">
                             <div className="field">
                                 <label>
-                                    <Field component="input" type="radio" name="single" value={true}/>
-                                    单身狗？
+                                    <Field component="input" type="radio" name="teacher" value={true}/>
+                                    老师？
                                 </label>
                             </div>
                             <div className="field">
                                 <label>
-                                    <Field component="input" type="radio" name="single" value={false}/>
-                                    非单身狗？
+                                    <Field component="input" type="radio" name="teacher" value={false}/>
+                                    学生？
                                 </label>
                             </div>
                         </div>
@@ -124,9 +124,9 @@ export const SimpleFormDemo = React.createClass({
                     <div className="field">
                         <h4>radio group</h4>
                         <div className="field">
-                            <Field component={RadioGroup} name="single">
-                                <Radio value={true}>单身狗？</Radio>
-                                <Radio value={false}>非单身狗？</Radio>
+                            <Field component={RadioGroup} name="teacher">
+                                <Radio value={true}>老师？</Radio>
+                                <Radio value={false}>学生？</Radio>
                             </Field>
                         </div>
                     </div>
@@ -134,15 +134,15 @@ export const SimpleFormDemo = React.createClass({
                         <h4>checkbox</h4>
                         <div className="field">
                             <label htmlFor="">
-                                <Field component="input" type="checkbox" name="single"/>
-                                单身狗？
+                                <Field component="input" type="checkbox" name="teacher"/>
+                                老师？
                             </label>
                         </div>
                     </div>
                     <div className="field">
                         <h4>CheckBox</h4>
                         <div className="field">
-                            <Field component={CheckBox} name="single">单身狗？</Field>
+                            <Field component={CheckBox} name="teacher">老师？</Field>
                         </div>
                     </div>
                     <div className="field">
@@ -205,7 +205,7 @@ export default class FormDemo extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="form-page">
                 <SimpleFormDemo store={this.state.user}/>
                 <button onClick={this.initData.bind(this)}>init Data</button>
                 <button onClick={this.loadData.bind(this)}>load Data</button>
